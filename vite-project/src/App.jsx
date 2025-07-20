@@ -11,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/edit" element={<Editpage />} />
-        <Route path="/singlepage" element={<Singlepage/>} />
+        <Route path="/edit/" element={<Editpage />} />
+        <Route path="/singlepage/:id" element={<Singlepage/>} />
          <Route path="/learning-usestate" element={<LearningUseState/>} />
       </Routes>
     </BrowserRouter>

@@ -1,45 +1,88 @@
 import Navbar from "./components/navbar"
 
-function Create(){
-    return (
-              <> <Navbar /> 
+function Create() {
+  return (
+    <>
+      <Navbar />
 
-<div>
-  <meta charSet="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add new Blog Post</title>
-  <section className="flex-grow container mx-auto p-6">
-    <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Create a New Blog Post</h1>
-    <form action="/addBlog" method="POST" className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-      {/* Title */}
-      <div className="mb-4">
-        <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">Title</label>
-        <input type="text" id="title" name="title" required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Enter blog title" />
-      </div>
-      {/* Title */}
-      <div className="mb-4">
-        <label htmlFor="subtitle" className="block text-gray-700 font-semibold mb-2">Sub Title</label>
-        <input type="text" id="subtitle" name="subtitle" required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Enter blog title" />
-      </div>
-      {/* description */}
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-gray-700 font-semibold mb-2">Description</label>
-        <textarea id="description" name="description" required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Write your blog content here" defaultValue={""} />
-      </div>
-      {/* Submit Button */}
-      <div className="text-center">
-        <button type="submit" className="bg-purple-700 text-white px-6 py-2.5 rounded-md font-semibold hover:bg-blue-700 transition">
-          Publish Post
-        </button>
-      </div>
-    </form>
-  </section>
-</div>
+      <div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+          Create a Blog Post
+        </h1>
 
+        <form action="/addBlog" method="POST" className="space-y-6">
+          {/* Title */}
+          <div>
+            <label htmlFor="title" className="block mb-2 text-sm font-semibold text-gray-700">
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Enter blog title"
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            />
+          </div>
 
-            </>
+          {/* Subtitle */}
+          <div>
+            <label htmlFor="subtitle" className="block mb-2 text-sm font-semibold text-gray-700">
+              Subtitle
+            </label>
+            <input
+              type="text"
+              id="subtitle"
+              name="subtitle"
+              placeholder="Enter blog subtitle"
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            />
+          </div>
 
-    )
+          {/* Description */}
+          <div>
+            <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows="6"
+              placeholder="Write your blog content here"
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-y"
+            />
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label htmlFor="image" className="block mb-2 text-sm font-semibold text-gray-700">
+              Image URL (optional)
+            </label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              placeholder="https://example.com/image.jpg"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div>
+            <button
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-md transition duration-200"
+            >
+              Publish Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  )
 }
 
 export default Create

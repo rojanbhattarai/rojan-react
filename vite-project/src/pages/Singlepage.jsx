@@ -1,41 +1,79 @@
+import { useParams,useNavigate } from "react-router-dom"
 import Navbar from "./components/Navbar"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
-function Singlepage(){
-    return (
+
+function Singlepage() {
+  const { id } = useParams()
+  const [blog, setBlog] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    async function fetchBlog() {
+      try {
+        const response = await axios.get(`https://687af47babb83744b7ee4d60.mockapi.io/Blogs/${id}`)
+        if (response.status === 200) {
+          setBlog(response.data)
+          setError(null)
+        } else {
+          setError(`Unexpected status: ${response.status}`)
+        }
+      } catch (err) {
+        setError("Error fetching blog data")
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchBlog()
+  }, [id])
+
+  if (loading) return <div className="p-6 text-center">Loading...</div>
+  if (error) return <div className="p-6 text-center text-red-600">{error}</div>
+  if (!blog) return <div className="p-6 text-center">Blog not found</div>
  
-        <> <Navbar />
-        
-       {/* Blog post with featured image */}
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div className="max-w-3xl mx-auto">
-    {/* Blog post header */}
-    <div className="py-8">
-      <h1 className="text-3xl font-bold mb-2">React JS: Build Fast, Interactive UIs with Ease</h1>
-      <p className="text-gray-500 text-sm">Published on <time dateTime="2025-07-18">April 5, 2022</time></p>
-    </div>
-    {/* Featured image */}
-    <img src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c" alt="Featured image" className="w-full h-auto mb-8" />
-    {/* Blog post content */}
-    <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
+ 
+  async function deleteBlogs() {
+    if (!window.confirm("Are you sure you want to delete this blog?")) return
 
-       <p><strong>React JS</strong> is a JavaScript library for building fast, dynamic user interfaces using reusable components.</p>
+    try {
+      const response = await axios.delete(
+        `https://687af47babb83744b7ee4d60.mockapi.io/Blogs/${id}`
+      )
+      if (response.status === 200) {
+        alert("Blog deleted successfully!")
+        navigate("/") // Redirect back to home
+      } else {
+        alert("Failed to delete the blog!")
+      }
+    } catch (error) {
 
-  <h2>⚡ Why Use React?</h2>
-  <ul>
-    <li>Reusable components</li>
-    <li>Faster performance with Virtual DOM</li>
-    <li>Easy to learn and scalable</li>
-  </ul>
+    }
+  }
 
 
-  <p>Get started with React and build your first interactive app today!</p>
-    </div>
-  </div>
-</div>
+  return (
+    <>
+      <Navbar />
 
-        
-         </>
-    )
+      <div className="max-w-screen-md mx-auto p-6">
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className="mb-6 rounded-lg object-cover w-full h-64"
+        />
+        <h1 className="text-3xl font-bold mb-2">{blog.title}</h1>
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">{blog.subtitle}</h2>
+        <p className="mb-4">{blog.description || "No description provided."}</p>
+        <p className="text-gray-500 text-sm">Created at: { Date(blog.createdAt)}</p>
+      </div>
+      <button type="button" onClick={deleteBlogs} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">DELETE BLOGS</button>
+    </>
+  )
 }
 
 export default Singlepage
