@@ -1,6 +1,31 @@
+import { useState } from "react"
 import Navbar from "./components/navbar"
+import axios from "axios"
 
 function Create() {
+  const [title,setTitle]=useState("")
+  const [subtitle,setSubtitle]=useState("")
+  const [description,setDescription]=useState("")
+  const [image,setImage]=useState("")
+  async function Datatobackend(e) {
+    e.preventDefault()
+    const response= await axios.post('https://687af47babb83744b7ee4d60.mockapi.io/Blogs',
+      {
+      title: title,
+      subtitle: subtitle,
+      description: description,
+      image: image
+    })
+    setTitle("")
+      setSubtitle("")
+      setDescription("")
+      setImage("")
+    console.log(response)
+
+
+    
+  }
+
   return (
     <>
       <Navbar />
@@ -10,13 +35,13 @@ function Create() {
           Create a Blog Post
         </h1>
 
-        <form action="/addBlog" method="POST" className="space-y-6">
+        <form  onSubmit={Datatobackend}  action="/addBlog" method="POST" className="space-y-6">
           {/* Title */}
           <div>
             <label htmlFor="title" className="block mb-2 text-sm font-semibold text-gray-700">
-              Title
+              
             </label>
-            <input
+            <input onChange={(e)=>setTitle(e.target.value)}
               type="text"
               id="title"
               name="title"
@@ -31,7 +56,7 @@ function Create() {
             <label htmlFor="subtitle" className="block mb-2 text-sm font-semibold text-gray-700">
               Subtitle
             </label>
-            <input
+            <input onChange={(e)=>setSubtitle(e.target.value)}
               type="text"
               id="subtitle"
               name="subtitle"
@@ -46,7 +71,7 @@ function Create() {
             <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700">
               Description
             </label>
-            <textarea
+            <textarea onChange={(e)=>setDescription(e.target.value)}
               id="description"
               name="description"
               rows="6"
@@ -61,7 +86,7 @@ function Create() {
             <label htmlFor="image" className="block mb-2 text-sm font-semibold text-gray-700">
               Image URL (optional)
             </label>
-            <input
+            <input onChange={(e)=>setImage(e.target.value)}
               type="text"
               id="image"
               name="image"

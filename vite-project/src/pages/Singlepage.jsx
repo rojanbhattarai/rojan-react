@@ -44,16 +44,24 @@ function Singlepage() {
       const response = await axios.delete(
         `https://687af47babb83744b7ee4d60.mockapi.io/Blogs/${id}`
       )
-      if (response.status === 200) {
+      if (response.status === 200|| response.status === 204) {
         alert("Blog deleted successfully!")
         navigate("/") // Redirect back to home
       } else {
         alert("Failed to delete the blog!")
       }
     } catch (error) {
+      console.error("Error deleting blog:", error);
+  alert("An error occurred while deleting the blog.");
 
     }
   }
+   function editBlogs(){
+  
+  navigate(`/edit/${blog.id}`)
+}
+
+   
 
 
   return (
@@ -72,6 +80,7 @@ function Singlepage() {
         <p className="text-gray-500 text-sm">Created at: { Date(blog.createdAt)}</p>
       </div>
       <button type="button" onClick={deleteBlogs} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">DELETE BLOGS</button>
+      <button type="button" onClick={editBlogs} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit BLOGS</button>
     </>
   )
 }
