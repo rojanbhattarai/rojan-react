@@ -68,7 +68,7 @@ function Singlepage() {
     <>
       <Navbar />
 
-      <div className="max-w-screen-md mx-auto p-6">
+      <div className="max-w-3xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
         <img
           src={blog.image}
           alt={blog.title}

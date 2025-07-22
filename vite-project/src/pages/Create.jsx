@@ -1,12 +1,14 @@
 import { useState } from "react"
 import Navbar from "./components/navbar"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 function Create() {
   const [title,setTitle]=useState("")
   const [subtitle,setSubtitle]=useState("")
   const [description,setDescription]=useState("")
   const [image,setImage]=useState("")
+  const navigate= useNavigate()
   async function Datatobackend(e) {
     e.preventDefault()
     const response= await axios.post('https://687af47babb83744b7ee4d60.mockapi.io/Blogs',
@@ -16,15 +18,26 @@ function Create() {
       description: description,
       image: image
     })
-    setTitle("")
-      setSubtitle("")
-      setDescription("")
-      setImage("")
-    console.log(response)
+     if (response.status === 201 || response.status === 200) {
+      alert(" Blog created successfully!");
+
+      // Clear fields
+      setTitle("");
+      setSubtitle("");
+      setDescription("");
+      setImage("");
+
+      navigate("/");
+    } else {
+      alert(" Failed to create blog!");
+    }
+
+  }
+
 
 
     
-  }
+  
 
   return (
     <>

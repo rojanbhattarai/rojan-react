@@ -10,7 +10,7 @@ function Home(){
      const response=  await axios.get("https://687af47babb83744b7ee4d60.mockapi.io/Blogs")
     
     
-     if(response.status=200){
+     if(response.status==200){
  setBlogs(response.data);
      }
      else{
