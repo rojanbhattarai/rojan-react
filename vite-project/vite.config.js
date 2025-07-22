@@ -7,4 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: process.env.VITE_BASE_PATH || "https://github.com/rojanbhattarai/rojan-react"
 })
