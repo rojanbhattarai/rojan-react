@@ -1,6 +1,6 @@
 import { useEffect ,useState} from "react";
 import Navbar from "./components/Navbar"
-import Cards from "./components/cards"
+import Cards from "./components/Cards"
 import axios from 'axios'
 function Home(){
     const[blogs,setBlogs]=useState([]);
